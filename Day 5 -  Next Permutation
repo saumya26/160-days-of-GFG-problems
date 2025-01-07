@@ -1,0 +1,44 @@
+class Solution:
+    def nextPermutation(self, arr):
+        # code here
+
+        # Find the breakpoint in the arr
+        n = len(arr)
+        brkpt = -1
+        for i in range(n-2,-1,-1):
+            if arr[i] < arr[i+1]:
+                brkpt = i
+                break
+        
+        
+        # if there is no breakpoint , then return the reverse of arr ( basically first permutation )
+        if brkpt == -1:
+            return arr.reverse()
+        
+        # find bigger than break pt but smallest of the remainings
+        for i in range(n-1,brkpt,-1):
+            if arr[i] > arr[brkpt]:
+                arr[i],arr[brkpt] = arr[brkpt],arr[i]
+                break
+                
+        
+        # After breakpoint , sort the arr in increasing order 
+        # arr = arr[:brkpt+1]+sorted(arr[brkpt+1:])
+        arr[brkpt+1:] = reversed(arr[brkpt+1:])
+        return arr
+    
+
+
+if __name__ == '__main__':
+    t = int(input())
+    for _ in range(t):
+        arr = input().split()
+        N = len(arr)
+        for i in range(N):
+            arr[i] = int(arr[i])
+
+        ob = Solution()
+        ob.nextPermutation(arr)
+        for i in range(N):
+            print(arr[i], end=" ")
+        print()
