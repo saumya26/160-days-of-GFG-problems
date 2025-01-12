@@ -1,0 +1,26 @@
+class Solution:
+    def solve(self ,idx, buy, prices, n,memo):
+        if idx == n:
+            return 0
+        
+        if (idx,buy) in memo:
+            return memo[(idx,buy)]
+            
+        
+        if buy:
+            profit = max(-prices[idx] + self.solve(idx+1,0,prices,n,memo), 0 + self.solve(idx+1,1,prices,n,memo) )
+        else:
+            profit = max(prices[idx] + self.solve(idx+1,1,prices,n,memo) , 0 + self.solve(idx+1,0,prices,n,memo) )
+            
+        memo[(idx,buy)] = profit
+        return profit
+
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        arr = list(map(int, input().strip().split()))
+        solution = Solution()
+        res = solution.maximumProfit(arr)
+        print(res)
+        print("~")
