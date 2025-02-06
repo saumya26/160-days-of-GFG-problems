@@ -1,0 +1,76 @@
+#User function Template for python3
+
+#Complete this function
+#Function to find maximum circular subarray sum.
+
+def circularSubarraySum(arr):
+    ##Your code here
+    # Kadane's Algo -> it will give us max sum of subarray 
+    # Rotate arr till same position , and get max sum of each rotated subarr
+    n =  len(arr)
+    
+    # total sum
+    tsum = sum(arr)
+    
+    
+    # min sum
+    minsum = kadanemin(n,arr)
+    
+    # max sum 
+    maxsum = kadanemax(n,arr)
+    
+    # circular sum
+    circularsum = tsum - minsum
+    
+    if maxsum > 0:
+        return max(maxsum,circularsum)
+    
+    return maxsum
+
+def kadanemax(n,arr):
+    
+    res = arr[0]
+    currmax = arr[0]
+    
+    for i in range(1,len(arr)):
+         
+        currmax =  max (currmax + arr [i], arr[i])
+        
+        res =  max ( res , currmax)
+    
+    return res
+    
+def kadanemin(n,arr):
+    
+    res = arr[0]
+    currmin = arr[0]
+    
+    for i in range(1,len(arr)):
+         
+        currmin =  min (currmin + arr [i], arr[i])
+        
+        res =  min ( res , currmin)
+    
+    return res
+    
+
+
+    
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+import math
+import sys
+
+if __name__ == "__main__":
+    T = int(input())
+    while (T > 0):
+
+        arr = [int(x) for x in input().strip().split()]
+
+        print(circularSubarraySum(arr))
+
+        T -= 1
+
+# } Driver Code Ends
